@@ -1,4 +1,3 @@
-
 const Make_calendar = (year:number, month:number):number[][] => {
     let calendar:number[][] = []
     const first_day:Date = new Date(year, month, 1);
@@ -29,9 +28,6 @@ const Make_calendar = (year:number, month:number):number[][] => {
             last_week.push( begin_next_month.getDate() + i)
         }
     }
-    
-    // console.log("last_week")
-    // console.log(last_week)
 
     // middle week===========
     for(let i = 0; i < 5; i++){

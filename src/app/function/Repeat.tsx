@@ -1,4 +1,3 @@
-import ReactNode from 'react';
 import './Repeat.css'
 
 type type_repeat = {

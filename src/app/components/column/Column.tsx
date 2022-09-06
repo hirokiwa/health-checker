@@ -1,5 +1,4 @@
 import React from 'react';
-import Repeat from '../../function/Repeat';
 import Square from '../square/Square';
 import './Column.css';
 
