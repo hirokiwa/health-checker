@@ -1,11 +1,19 @@
 import React from 'react';
+import { BrowserRouter, Routes, Route } from "react-router-dom";
 import './App.css';
+import Top from "./top/Top";
+import Home from "./home/Home";
+import Login from "./login/Login";
 
-function App() {
+const App = () => {
   return (
-    <div className="App">
-      this is App
-    </div>
+    <BrowserRouter>
+      <Routes>
+        <Route path={`/`} element={<Top />} />
+        <Route path={`/home`} element={<Home />} />
+        <Route path={`/login/`} element={<Login />} />
+      </Routes>
+    </BrowserRouter>
   );
 }
 
