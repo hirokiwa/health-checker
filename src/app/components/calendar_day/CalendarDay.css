@@ -1,12 +1,10 @@
-.Square{
+.CalendarDay{
     border: solid 1px #000;
-    text-align: left;
+    text-align: center;
     width: 4rem;
-    height: 4rem;
 }
-
 @media screen and (max-width: 460px) {
-    .Square{
+    .CalendarDay{
       width: 14.2%;
     }
   }

@@ -1,4 +1,3 @@
-import React from 'react';
 import Square from '../square/Square';
 import './Column.css';
 
@@ -9,13 +8,7 @@ interface type_column {
 const Column = (props:type_column) => {
     return(
         <div className="Column">
-            {/* <Repeat numTimes={7} display_flex={true}>
-                {(index:number) => <div key={index} className = "square_outer">
-                    <Square times = {index} />
-                </div>
-                }
-            </Repeat> */}
-            {props.week.map((date, index) => <Square date = {date} />)}
+            {props.week.map((date) => <Square date = {date} />)}
         </div>
     )
 }

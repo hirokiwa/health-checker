@@ -8,7 +8,7 @@ type type_Square = {
 const Square = (props:type_Square) => {
     return(
         <div className="Square">
-            {props.date}日
+            {props.date}
         </div>
     )
 }

@@ -7,7 +7,7 @@ import CalendarHead from '../components/calendar_head/CalendarHead';
 // import console from 'console';
 
 
-const Home = () => {
+const Home = ():JSX.Element => {
     const today:Date = new Date();
     const [year, setYear] = useState<number>(Number(today.getFullYear()))
     const [month, setMonth] = useState<number>(Number(today.getMonth()))
@@ -15,7 +15,6 @@ const Home = () => {
     return(
         <div className="Home">
             <Header/>
-            this is Home
             <CalendarHead
                 year = {year}
                 setYear = {setYear}
