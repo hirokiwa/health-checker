@@ -18,45 +18,61 @@ const DataInput = styled.input`
     }
 `
 
+const SubmitButton = styled.button`
+    width:10rem;
+    height:2rem;
+    border-radius:0.5rem;
+    margin 2rem;
+`
+
 const TakeTemperture = ():JSX.Element => {
-    const today:Date = new Date();
     const [temperture, setTemperture] = useState<number>(0);
+    const [displayTempertureInput, setDisplayTempertureInput] = useState<string>("");
+    
     // const [tempertureUnits, setTempertureUnits] = useState<number[]>([3,6,0]);
 
-    const DisplayTemperture = (e: React.ChangeEvent<HTMLInputElement>):void => {
-        let changeValue: number = Number(e.target.value);
-        setTemperture(Number(e.target.value)/10)
+    // for desktop======================================
+    window.onload = () => {
+        document.getElementById("DataUnit")!.focus();
     }
-
-    // for usability======================================
-    // window.onload = () => {
-    //     document.getElementById("DataUnit0")!.focus();
-    // }
     // ===================================================
 
-    // const [squareData, setSquareData] = useState<number>(0);
+    const addPeriod = (inputedData: string): boolean => (
+        inputedData.length === 2 && displayTempertureInput.length <= inputedData.length
+    );
+    
+    const cutPeriod = (inputedData: string): boolean => (
+        inputedData.length === 2 && displayTempertureInput.length > inputedData.length
+    );
 
-    const sliceMaxLength = (e:React.ChangeEvent<HTMLInputElement>) => {  
-        e.target.value = e.target.value.slice(0, 4);
-        setTemperture(Number(e.target.value));
+    const sliceMaxLength = (e:React.ChangeEvent<HTMLInputElement>) => {
+        const inputedData = e.target.value.slice(0, (cutPeriod(e.target.value)? 1 : 4));
+            
+        setDisplayTempertureInput(`${inputedData}${addPeriod(inputedData) ? '.' : ''}`);
+        setTemperture(Number(inputedData));
+    }
+
+    const submitTemperture = () => {
+        console.log(temperture);
     }
 
     const KeyPressHandler = (e: React.KeyboardEvent<HTMLInputElement>) => {
         if (e.code === "Enter") {
-            console.log(temperture);
+            submitTemperture();
         }
+        // e.code === "Enter" ? console.log(temperture) : undefined;
     }
     
     return(
         <div className="Submit">
             {/* <div className='display_temperture'>{temperture.toFixed(1)}</div> */}
-            <div>本日の体温</div>
-
+            <h2>本日の体温</h2>
             <DataInput
-                type="number"
+                // type="number"
                 id={"DataUnit"}
+                value={displayTempertureInput}
                 onChange={(e) => sliceMaxLength(e)}
-                step="0.1"
+                // step="0.1"
                 // onChange={(e) => setTemerture(Number(e.target.value))}
                 placeholder={"00.0"}
                 // placeholder={String(props.defoultNumber)}
@@ -85,7 +101,7 @@ const TakeTemperture = ():JSX.Element => {
             {/* =================================================== */}
             <span>℃</span>
             <br></br>
-            <button>記録</button>
+            <SubmitButton onClick={()=>{submitTemperture()}}>記録</SubmitButton>
         </div>
     )
 }
