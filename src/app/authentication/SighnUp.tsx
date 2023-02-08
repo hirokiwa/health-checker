@@ -20,15 +20,33 @@ const SubmitButton = styled.button`
 interface emailAuthentificationData{
     email: string,
     password:string
+    passwordConfirmation:string
 }
 
 const ShignUp = (): JSX.Element => {
-    const [emailUser, setEmailUser] = useState<emailAuthentificationData>({ email: "", password: "" });
+    const [emailUser, setEmailUser] = useState<emailAuthentificationData>(
+        {
+            email: "",
+            password: "",
+            passwordConfirmation: ""
+        }
+    );
     window.onload = () => {
         document.getElementById("password")!.focus();
     }
 
     const submitAuthentification = () => {
+        Object.entries(emailUser).map(([key,value]) => {
+            if (value === '') {
+                alert(`${key}を入力してください。`);
+            }
+        })
+    
+        if (emailUser.password !== emailUser.passwordConfirmation) {
+            alert("パスワードが異なります。");
+            return;
+        }
+        console.log("サインインします。");
         createUserWithEmailAndPassword(auth, emailUser.email, emailUser.password)
             .then((userCredential) => {
                 const user = userCredential.user;
@@ -60,8 +78,7 @@ const ShignUp = (): JSX.Element => {
                 onChange={(e) => setEmailUser({ ...emailUser, email: e.target.value })}
                 placeholder={"メールアドレス"}
                 onKeyDown={(e) => KeyPressHandler(e)}
-            >
-            </DataInput>
+            />
             <div>パスワード</div>
             <DataInput
                 type="password"
@@ -69,8 +86,15 @@ const ShignUp = (): JSX.Element => {
                 onChange={(e) => setEmailUser({ ...emailUser, password: e.target.value })}
                 placeholder={"パスワード"}
                 onKeyDown={(e) => KeyPressHandler(e)}
-            >
-            </DataInput>
+            />
+            <div>パスワード再入力</div>
+            <DataInput
+                type="password"
+                id={"passwordConfirmation"}
+                onChange={(e) => setEmailUser({ ...emailUser, passwordConfirmation: e.target.value })}
+                placeholder={"パスワード再入力"}
+                onKeyDown={(e) => KeyPressHandler(e)}
+            />
         </AuthenticationForm>
         <SubmitButton onClick={()=>submitAuthentification()}>サインアップ</SubmitButton>
     </div>
